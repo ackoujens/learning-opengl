@@ -1,3 +1,0 @@
-[submodule "glfw-cmake-boilerplate"]
-	path = lib/glfw-cmake-boilerplate
-	url = https://github.com/ackoujens/glfw-cmake-boilerplate
