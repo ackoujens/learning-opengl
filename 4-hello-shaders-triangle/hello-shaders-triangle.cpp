@@ -33,7 +33,12 @@ private:
 public:
     void startup() {
       // Source code for vertex shader
-      // NOTE had an issue with version 430 core, changing it to 330 solved the issue of OpenGL not drawing my point
+      // Produce multiple vertices
+      // GLSL includes a special input to the vertex shader (gl_VertexID)
+      // = index of the vertex that is being processed at the time
+      // Starts counting from the value given by the first param of glDrawArrays
+      // -> counts upwards one vertex at a time for count vertices (third param of glDrawArrays)
+      // One of the many input vars like gl_Position
       static const GLchar * vertex_shader_source[] =
       {
         "#version 330 core                            \n"
@@ -104,10 +109,8 @@ public:
         // Use the program we created earlier for rendering
         glUseProgram(rendering_program);
 
-        // Increase the point size & draw one point
-        // DrawArrays sends vertices into the OpenGL pipeline
-        glPointSize(40.0f);
-        glDrawArrays(GL_POINTS, 0, 1);
+        // Draw one triangle
+        glDrawArrays(GL_TRIANGLES, 0, 3);
     }
 };
 
