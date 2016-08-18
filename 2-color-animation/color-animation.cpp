@@ -1,7 +1,6 @@
 #include <Engine.hpp>
 #include <OpenGL/gl3.h>
 #include <Math.h>
-#include <iostream>
 using namespace std;
 
 class my_application : public Engine {
