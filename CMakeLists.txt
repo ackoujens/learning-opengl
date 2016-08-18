@@ -77,8 +77,20 @@ target_link_libraries(1-hello-opengl ${ENGINE_NAME})
 add_executable(2-color-animation 2-color-animation/color-animation.cpp)
 target_link_libraries(2-color-animation ${ENGINE_NAME})
 
-add_executable(3-hello-shaders 3-hello-shaders/hello-shaders.cpp)
-target_link_libraries(3-hello-shaders ${ENGINE_NAME})
+add_executable(3-hello-shaders-dot 3-hello-shaders-dot/hello-shaders-dot.cpp)
+target_link_libraries(3-hello-shaders-dot ${ENGINE_NAME})
+
+add_executable(4-hello-shaders-triangle 4-hello-shaders-triangle/hello-shaders-triangle.cpp)
+target_link_libraries(4-hello-shaders-triangle ${ENGINE_NAME})
+
+add_executable(5-pipeline-vertex-attributes 5-pipeline-vertex-attributes/pipeline-vertex-attributes.cpp)
+target_link_libraries(5-pipeline-vertex-attributes ${ENGINE_NAME})
+
+add_executable(6-pipeline-passing-data 6-pipeline-passing-data/pipeline-passing-data.cpp)
+target_link_libraries(6-pipeline-passing-data ${ENGINE_NAME})
+
+add_executable(7-pipeline-interface-blocks 7-pipeline-interface-blocks/pipeline-interface-blocks.cpp)
+target_link_libraries(7-pipeline-interface-blocks ${ENGINE_NAME})
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  POST BUILD COMMANDS                                             │
