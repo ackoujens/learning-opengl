@@ -3,26 +3,14 @@
 using namespace std;
 
 /*
-  OpenGL works by connecting a number of mini-programs called shaders together with fixed-function-glue.
-  GFX Processor executes your shaders when you draw -> pipes in&outputs along the pipeline
-  until pixels come out the end.
+  Vertex shader is the only mandatory stage in the OpenGL pipeline
+  Before the vertex shader runs -> fixed-function stage (vertex fetching / vertex pulling) is run
+  -> provides inputs to vertex shader
 
-  OpenGL shaders are written in C based GLSL
-  Compiler is built into OpenGL <- shader objects
-  Multiple shaders get linked together -> program object
-  Each program object can contain shaders for 1 or more shader stages.
-
-  Shader stages of OpenGL:
-  - vertex shaders
-  - tesselation control
-  - evaluation shaders
-  - geometry shaders
-  - fragment shaders
-  - compute shaders
-
-  Minimal setup for a visual result:
-  - vertex shader
-  - fragment shader
+  Getting data in and out in GLSL -> with global variables (in/out)
+  in/out can be used as conduits between from shader to shader
+  in variable in vertex shader is automatically filled in by fixed function vertex fetch stage
+  -> vertex attribute
 */
 
 class my_application : public Engine {
@@ -31,18 +19,28 @@ private:
     GLuint vertex_array_object;
 
 public:
-    void init() {
-      Engine::init();
-    }
-
     void startup() {
       // Source code for vertex shader
-      // NOTE had an issue with version 430 core, changing it to 330 solved the issue of OpenGL not drawing my point
+      //
       static const GLchar * vertex_shader_source[] =
       {
         "#version 330 core                            \n"
+        "// offset is an input vertex attribute \n"
+        "// layout is a layout qualifier used to set the location of the vertex attribute to 0 \n"
+        "// this location is the value we'll pass in index to refer to the attribute \n"
+        "layout (location = 0) in vec4 offset; \n"
+        "layout (location = 1) in vec4 color; \n"
+        " \n"
+        "// vs_color is an output that will be sent to the next shader stage \n"
+        "out vec4 vs_color; \n"
+        " \n"
         "void main(void) {                            \n"
-        "   gl_Position = vec4(0.0, 0.0, 0.5, 1.0);   \n"
+        "   const vec4 vertices[3] = vec4[3](vec4(0.25, -0.25, 0.5, 1.0), \n"
+        "                                    vec4(-0.25, -0.25, 0.5, 1.0),\n"
+        "                                    vec4(0.25, 0.25, 0.5, 1.0)); \n"
+        "// Add offset to our hard-coded vertex position \n"
+        "   gl_Position = vertices[gl_VertexID] + offset;   \n"
+        "vs_color = color; \n"
         "}                                            \n"
       };
 
@@ -51,10 +49,12 @@ public:
       {
         "#version 330 core                            \n"
         "                                             \n"
+        "// Input from the vertex shader \n"
+        "in vec4 vs_color; \n"
         "out vec4 color;                              \n"
         "                                             \n"
         "void main(void) {                            \n"
-        "   color = vec4(1.0, 1.0, 1.0, 1.0);         \n"
+        "   color = vs_color;         \n"
         "}                                            \n"
       };
 
@@ -78,8 +78,13 @@ public:
       glDeleteShader(vertex_shader);                                      // Shader objects not needed anymore after they are linked into program object
       glDeleteShader(fragment_shader);
 
-      // Keep returned program object
       //rendering_program = compile_shaders();
+
+      // Create a VAO
+      // Object that represents the vertex fetch stage of the OpenGL pipeline
+      // used to supply input to the vertex vertex shader
+      // not used in this case as the vertex shader doesn't have any inputs atm
+      // a VAO is still needed so OpenGL will let us draw
       glGenVertexArrays(1, &vertex_array_object);
       glBindVertexArray(vertex_array_object);
     }
@@ -93,17 +98,25 @@ public:
 
     // Override Virtual Render Function
     void render(double currentTime) {
-        // Multiply color values with currenTime for a simple animation
         const GLfloat green[] = { 0.0f, 0.25f, 0.0f,  1.0f };
-
         glClearBufferfv(GL_COLOR, 0, green);
 
         // Use the program we created earlier for rendering
         glUseProgram(rendering_program);
 
-        // Draw one point
-        glPointSize(40.0f);
-        glDrawArrays(GL_POINTS, 0, 1);
+        GLfloat attrib[] = { (float)sin(currentTime) * 0.5f,
+                             (float)cos(currentTime) * 0.6f,
+                             0.0f, 0.0f };
+
+        // Update the value of input attribute 0
+        // Parameter index is used to reference the attribute
+        // v is a pointer to the new data to put into the attribute
+
+        // Each time glVertexAttrib is called it will update the value of the vertex attribute that is passed to the vertex shader
+        glVertexAttrib4fv(0, attrib);
+
+        // Draw one triangle
+        glDrawArrays(GL_TRIANGLES, 0, 3);
     }
 };
 
