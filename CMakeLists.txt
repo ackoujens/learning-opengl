@@ -77,6 +77,9 @@ target_link_libraries(1-hello-opengl ${ENGINE_NAME})
 add_executable(2-color-animation 2-color-animation/color-animation.cpp)
 target_link_libraries(2-color-animation ${ENGINE_NAME})
 
+add_executable(3-hello-shaders 3-hello-shaders/hello-shaders.cpp)
+target_link_libraries(3-hello-shaders ${ENGINE_NAME})
+
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  POST BUILD COMMANDS                                             │
 # └──────────────────────────────────────────────────────────────────┘
