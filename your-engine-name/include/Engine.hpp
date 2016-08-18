@@ -1,8 +1,11 @@
 #ifndef Engine_hpp
 #define Engine_hpp
 
-#include <GLFW/glfw3.h>
+#include <iostream>
 #include <string>
+#include <math.h>
+#include <OpenGL/gl3.h>
+#include <GLFW/glfw3.h>
 
 class Engine {
 public:
@@ -14,8 +17,10 @@ public:
     Engine();
     virtual ~Engine();
 
+    virtual void init();
+    virtual void startup();
+    virtual void shutdown();
     virtual void run(Engine *app);
-
     virtual void render(double currentTime);
 };
 
