@@ -1,28 +1,4 @@
 #include <Engine.hpp>
-using namespace std;
-
-/*
-  OpenGL works by connecting a number of mini-programs called shaders together with fixed-function-glue.
-  GFX Processor executes your shaders when you draw -> pipes in&outputs along the pipeline
-  until pixels come out the end.
-
-  OpenGL shaders are written in C based GLSL
-  Compiler is built into OpenGL <- shader objects
-  Multiple shaders get linked together -> program object
-  Each program object can contain shaders for 1 or more shader stages.
-
-  Shader stages of OpenGL:
-  - vertex shaders
-  - tesselation control
-  - evaluation shaders
-  - geometry shaders
-  - fragment shaders
-  - compute shaders
-
-  Minimal setup for a visual result:
-  - vertex shader
-  - fragment shader
-*/
 
 class HelloShadersTriangle : public Engine {
 private:
@@ -36,12 +12,15 @@ public:
       static const GLchar * vertex_shader_source[] =
       {
         "#version 330 core                                                \n"
+        "// offset is an input vertex attribute                           \n"
+        "layout (location = 0) in vec4 offset;                            \n"
+        "                                                                 \n"
         "void main(void) {                                                \n"
         "   const vec4 vertices[3] = vec4[3](vec4(0.25, -0.25, 0.5, 1.0), \n"
         "                                    vec4(-0.25, -0.25, 0.5, 1.0),\n"
         "                                    vec4(0.25, 0.25, 0.5, 1.0)); \n"
-        "// Index into our array using gl_VertexID                        \n"
-        "   gl_Position = vertices[gl_VertexID];                          \n"
+        "// Add offset to our hard-coded vertex position                  \n"
+        "   gl_Position = vertices[gl_VertexID] + offset;                 \n"
         "}                                                                \n"
       };
 
@@ -101,6 +80,13 @@ public:
 
         // Use the program we created earlier for rendering
         glUseProgram(rendering_program);
+
+        GLfloat attrib[] = { (float)sin(currentTime) * 0.5f,
+                             (float)cos(currentTime) * 0.6f,
+                              0.0f, 0.0f };
+
+        // Update the value of input attribute 0 in the vertex shader
+        glVertexAttrib4fv(0, attrib);
 
         // Draw one triangle
         glDrawArrays(GL_TRIANGLES, 0, 3);

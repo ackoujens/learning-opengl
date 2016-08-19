@@ -83,8 +83,8 @@ target_link_libraries(3-hello-shaders-dot ${ENGINE_NAME})
 add_executable(4-hello-shaders-triangle 4-hello-shaders-triangle/hello-shaders-triangle.cpp)
 target_link_libraries(4-hello-shaders-triangle ${ENGINE_NAME})
 
-#add_executable(5-pipeline-vertex-attributes 5-pipeline-vertex-attributes/pipeline-vertex-attributes.cpp)
-#target_link_libraries(5-pipeline-vertex-attributes ${ENGINE_NAME})
+add_executable(5-pipeline-vertex-attributes 5-pipeline-vertex-attributes/pipeline-vertex-attributes.cpp)
+target_link_libraries(5-pipeline-vertex-attributes ${ENGINE_NAME})
 
 add_executable(6-pipeline-passing-data 6-pipeline-passing-data/pipeline-passing-data.cpp)
 target_link_libraries(6-pipeline-passing-data ${ENGINE_NAME})
