@@ -1,5 +1,4 @@
 #include <Engine.hpp>
-
 using namespace std;
 
 /*
@@ -25,30 +24,25 @@ using namespace std;
   - fragment shader
 */
 
-class my_application : public Engine {
+class HelloShadersTriangle : public Engine {
 private:
     GLuint rendering_program;
     GLuint vertex_array_object;
 
 public:
+    // Override Virtual Startup Function
     void startup() {
       // Source code for vertex shader
-      // Produce multiple vertices
-      // GLSL includes a special input to the vertex shader (gl_VertexID)
-      // = index of the vertex that is being processed at the time
-      // Starts counting from the value given by the first param of glDrawArrays
-      // -> counts upwards one vertex at a time for count vertices (third param of glDrawArrays)
-      // One of the many input vars like gl_Position
       static const GLchar * vertex_shader_source[] =
       {
-        "#version 330 core                            \n"
-        "void main(void) {                            \n"
+        "#version 330 core                                                \n"
+        "void main(void) {                                                \n"
         "   const vec4 vertices[3] = vec4[3](vec4(0.25, -0.25, 0.5, 1.0), \n"
         "                                    vec4(-0.25, -0.25, 0.5, 1.0),\n"
         "                                    vec4(0.25, 0.25, 0.5, 1.0)); \n"
-        "// Index into our array using gl_VertexID \n"
-        "   gl_Position = vertices[gl_VertexID];   \n"
-        "}                                            \n"
+        "// Index into our array using gl_VertexID                        \n"
+        "   gl_Position = vertices[gl_VertexID];                          \n"
+        "}                                                                \n"
       };
 
       // Source code for fragment shader
@@ -75,15 +69,13 @@ public:
 
       // Create program, attach shaders to it, link it
       rendering_program = glCreateProgram();                                 // Creates program object
-      glAttachShader(rendering_program, vertex_shader);                             // Attach shader object to program object
+      glAttachShader(rendering_program, vertex_shader);                      // Attach shader object to program object
       glAttachShader(rendering_program, fragment_shader);
-      glLinkProgram(rendering_program);                                             // Links all shader objects attached to program together
+      glLinkProgram(rendering_program);                                      // Links all shader objects attached to program together
 
       // Delete the shaders as the program has them now
-      glDeleteShader(vertex_shader);                                      // Shader objects not needed anymore after they are linked into program object
+      glDeleteShader(vertex_shader);
       glDeleteShader(fragment_shader);
-
-      //rendering_program = compile_shaders();
 
       // Create a VAO
       // Object that represents the vertex fetch stage of the OpenGL pipeline
@@ -94,8 +86,9 @@ public:
       glBindVertexArray(vertex_array_object);
     }
 
+    // Override Virtual Shutdown Function
     void shutdown() {
-      // Delete program object
+      // shader cleanup
       glDeleteVertexArrays(1, &vertex_array_object);
       glDeleteProgram(rendering_program);
       glDeleteVertexArrays(1, &vertex_array_object);
@@ -114,4 +107,4 @@ public:
     }
 };
 
-DECLARE_MAIN(my_application);
+DECLARE_MAIN(HelloShadersTriangle);

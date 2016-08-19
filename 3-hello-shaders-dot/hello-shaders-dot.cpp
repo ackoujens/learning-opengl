@@ -1,5 +1,4 @@
 #include <Engine.hpp>
-
 using namespace std;
 
 /*
@@ -25,16 +24,18 @@ using namespace std;
   - fragment shader
 */
 
-class my_application : public Engine {
+class HelloShadersDot : public Engine {
 private:
-    GLuint rendering_program;
-    GLuint vertex_array_object;
+    GLuint renderingProgram;
+    GLuint vertexArrayObject;
 
 public:
+    // Override Virtual Startup Function
     void startup() {
       // Source code for vertex shader
-      // NOTE had an issue with version 430 core, changing it to 330 solved the issue of OpenGL not drawing my point
-      static const GLchar * vertex_shader_source[] =
+      // NOTE had an issue with version 430 core
+      // changing it to 330 solved the issue of OpenGL not drawing my point
+      static const GLchar * vertexShaderSource[] =
       {
         "#version 330 core                            \n"
         "void main(void) {                            \n"
@@ -43,7 +44,7 @@ public:
       };
 
       // Source code for fragment shader
-      static const GLchar * fragment_shader_source[] =
+      static const GLchar * fragmentShaderSource[] =
       {
         "#version 330 core                            \n"
         "                                             \n"
@@ -66,27 +67,30 @@ public:
 
       // Create program, attach shaders to it, link it
       rendering_program = glCreateProgram();                                 // Creates program object
-      glAttachShader(rendering_program, vertex_shader);                             // Attach shader object to program object
+      glAttachShader(rendering_program, vertex_shader);                      // Attach shader object to program object
       glAttachShader(rendering_program, fragment_shader);
-      glLinkProgram(rendering_program);                                             // Links all shader objects attached to program together
+      glLinkProgram(rendering_program);                                      // Links all shader objects attached to program together
 
       // Delete the shaders as the program has them now
-      glDeleteShader(vertex_shader);                                      // Shader objects not needed anymore after they are linked into program object
+      // shader objects not needed after linked into program object
+      glDeleteShader(vertex_shader);
       glDeleteShader(fragment_shader);
 
+      // NOTE This shows that the shader creation should be in a static function
       //rendering_program = compile_shaders();
 
       // Create a VAO
-      // Object that represents the vertex fetch stage of the OpenGL pipeline
-      // used to supply input to the vertex vertex shader
+      // object that represents the vertex fetch stage of the OpenGL pipeline
+      // used to supply input to the vertex shader
       // not used in this case as the vertex shader doesn't have any inputs atm
       // a VAO is still needed so OpenGL will let us draw
       glGenVertexArrays(1, &vertex_array_object);
       glBindVertexArray(vertex_array_object);
     }
 
+    // Override Virtual Shutdown Function
     void shutdown() {
-      // Delete program object
+      // shader cleanup
       glDeleteVertexArrays(1, &vertex_array_object);
       glDeleteProgram(rendering_program);
       glDeleteVertexArrays(1, &vertex_array_object);
@@ -100,11 +104,13 @@ public:
         // Use the program we created earlier for rendering
         glUseProgram(rendering_program);
 
-        // Increase the point size & draw one point
-        // DrawArrays sends vertices into the OpenGL pipeline
+        // Increase the point size
         glPointSize(40.0f);
+
+        // DrawArrays sends vertices into the OpenGL pipeline
+        // draws 1 point in this case
         glDrawArrays(GL_POINTS, 0, 1);
     }
 };
 
-DECLARE_MAIN(my_application);
+DECLARE_MAIN(HelloShadersDot);

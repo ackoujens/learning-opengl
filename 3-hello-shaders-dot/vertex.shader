@@ -1,6 +1,7 @@
+// NOTE Seperate shader files not in use ATM
 // Shader compiler version
 // core indicates that we only use features from OpenGL core profile
-#version 430 core
+#version 330 core
 
 // Normal C program start point except in GLSL there are no parameters
 void main(void) {
