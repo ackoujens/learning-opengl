@@ -1,5 +1,4 @@
 #include <Engine.hpp>
-using namespace std;
 
 /*
   OpenGL works by connecting a number of mini-programs called shaders together with fixed-function-glue.
