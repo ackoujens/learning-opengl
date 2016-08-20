@@ -105,17 +105,6 @@ public:
         "}                                                              \n"
       };
 
-      // Source code for fragment shader
-      static const GLchar * fragmentShaderSource[] =
-      {
-        "#version 330 core                             \n"
-        "out vec4 color;                               \n"
-        "                                              \n"
-        "void main(void) {                             \n"
-        "   color = vec4(0.0, 1.0, 1.0, 1.0);          \n"
-        "}                                             \n"
-      };
-
       // Source code for geometry shader
       // acts as a passthrough shader
       // converts triangles to points so that we can see their vertices
@@ -145,6 +134,17 @@ public:
         "} \n"
       };
 
+      // Source code for fragment shader
+      static const GLchar * fragmentShaderSource[] =
+      {
+        "#version 330 core                             \n"
+        "out vec4 color;                               \n"
+        "                                              \n"
+        "void main(void) {                             \n"
+        "   color = vec4(0.0, 1.0, 1.0, 1.0);          \n"
+        "}                                             \n"
+      };
+
       // Create and compile vertex shader
       GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
       glShaderSource(vertexShader, 1, vertexShaderSource, 0);
@@ -163,17 +163,17 @@ public:
       glCompileShader(tessellationEvaluationShader);
       isShaderCompiled(tessellationEvaluationShader);
 
-      // Create and compile fragment shader
-      GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-      glShaderSource(fragmentShader, 1, fragmentShaderSource, 0);
-      glCompileShader(fragmentShader);
-      isShaderCompiled(fragmentShader);
-
       // Create and compile geometry shader
       GLuint geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
       glShaderSource(geometryShader, 1, geometryShaderSource, 0);
       glCompileShader(geometryShader);
       isShaderCompiled(geometryShader);
+
+      // Create and compile fragment shader
+      GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+      glShaderSource(fragmentShader, 1, fragmentShaderSource, 0);
+      glCompileShader(fragmentShader);
+      isShaderCompiled(fragmentShader);
 
       // Create program, attach shaders to it, link it
       renderingProgram = glCreateProgram();
@@ -188,8 +188,8 @@ public:
       glDeleteShader(vertexShader);
       glDeleteShader(tessellationControlShader);
       glDeleteShader(tessellationEvaluationShader);
-      glDeleteShader(fragmentShader);
       glDeleteShader(geometryShader);
+      glDeleteShader(fragmentShader);
 
       // Create a VAO
       glGenVertexArrays(1, &vertexArrayObject);
