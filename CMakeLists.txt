@@ -95,6 +95,9 @@ target_link_libraries(7-pipeline-interface-blocks ${ENGINE_NAME})
 add_executable(8-tessellation-control-shader 8-tessellation-control-shader/tessellation-control-shader.cpp)
 target_link_libraries(8-tessellation-control-shader ${ENGINE_NAME})
 
+add_executable(9-geometry-shader 9-geometry-shader/geometry-shader.cpp)
+target_link_libraries(9-geometry-shader ${ENGINE_NAME})
+
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  POST BUILD COMMANDS                                             │
 # └──────────────────────────────────────────────────────────────────┘
