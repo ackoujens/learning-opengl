@@ -89,8 +89,11 @@ target_link_libraries(5-pipeline-vertex-attributes ${ENGINE_NAME})
 add_executable(6-pipeline-passing-data 6-pipeline-passing-data/pipeline-passing-data.cpp)
 target_link_libraries(6-pipeline-passing-data ${ENGINE_NAME})
 
-#add_executable(7-pipeline-interface-blocks 7-pipeline-interface-blocks/pipeline-interface-blocks.cpp)
-#target_link_libraries(7-pipeline-interface-blocks ${ENGINE_NAME})
+add_executable(7-pipeline-interface-blocks 7-pipeline-interface-blocks/pipeline-interface-blocks.cpp)
+target_link_libraries(7-pipeline-interface-blocks ${ENGINE_NAME})
+
+add_executable(8-tessellation-control-shader 8-tessellation-control-shader/tessellation-control-shader.cpp)
+target_link_libraries(8-tessellation-control-shader ${ENGINE_NAME})
 
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  POST BUILD COMMANDS                                             │
