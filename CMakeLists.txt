@@ -98,6 +98,15 @@ target_link_libraries(8-tessellation-control-shader ${ENGINE_NAME})
 add_executable(9-geometry-shader 9-geometry-shader/geometry-shader.cpp)
 target_link_libraries(9-geometry-shader ${ENGINE_NAME})
 
+add_executable(10-fragment-shader 10-fragment-shader/fragment-shader.cpp)
+target_link_libraries(10-fragment-shader ${ENGINE_NAME})
+
+add_executable(11-fragment-shader-2 11-fragment-shader-2/fragment-shader-2.cpp)
+target_link_libraries(11-fragment-shader-2 ${ENGINE_NAME})
+
+add_executable(12-compute-shader 12-compute-shader/compute-shader.cpp)
+target_link_libraries(12-compute-shader ${ENGINE_NAME})
+
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  POST BUILD COMMANDS                                             │
 # └──────────────────────────────────────────────────────────────────┘
