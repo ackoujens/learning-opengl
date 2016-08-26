@@ -87,4 +87,32 @@ float d = dot(a, b);
 
 Dot product between these result in -1.0 -> 1.0 = cosine of the angle between them.
 This method returns the result in radians.
-```float angle(const vec3& u, const vec3& v);```
+`float angle(const vec3& u, const vec3& v);`
+
+## Cross Product
+Mathematical operation between 2 vectors.
+Cross product AKA vector product.
+
+Cross product between 2 vectors = a third vector that is perpendicular to the plane in which the first 2 vectors lie.
+
+Cross product between v1 and v2.
+`v1 X v2 = ||v1|| ||v2|| sin(O)n`
+n = the unit vector that is perpendicular to both v1 and v2.
+-> when you normalize the result of cross product = normal to a plane
+
+Cross product of 2 3d vectors v1 and v2:
+```
+[v3.x] = [v1.y . v2.z - v1.z . v2.y]
+[v3.y] = [v1.z . v2.x - v1.x . v2.z]
+[v3.z] = [v1.x . v2.y - v1.y . v2.x]
+```
+
+```
+vec3 a(...);
+vec3 b(...);
+
+vec3 c = a.cross(b);
+vec3 d = cross(a, b);
+```
+
+Order of the vectors is important!
