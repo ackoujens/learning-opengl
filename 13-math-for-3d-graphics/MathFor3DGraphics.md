@@ -28,14 +28,35 @@ Vector lengths of 1 are simpler to use in *math equations*.
 **Magnitude** can be useful to note *how far* we want something to move.
 
 ## Making classes to represent vectors and matrices
-3 component vectors (x, y, z)
+**3 component vectors** (x, y, z)
 ```c++
 vec3(-0.5f, 1.0f, -0.2f);
 ```
 
-4 component vectors (x, y, z, w)
+**4 component vectors** (x, y, z, w)
+
 w component is added to make the vector *homogeneous* -> typically set to 1.0
 x, y, z values might later be divided by w (when in 1.0 leaves x, y, z alone)
 ```c++
 vec4(-0.5f, 1.0f, -0.2f, 1.0f);
+```
+
+**The w component**
+
+Vertex position mostly done with a *vec3*. To transform *matrices* we need a *vec4*.
+
+To transform a 3d vertex, you must multiply it by a **4 x 4** transformation matrix.
+
+## Common vector operations
+**Operations on vectors**: addition, subtraction, unary negation, ...
+These operators perform a *per-component* calculations -> result in a vector of the same size as the input. Overriding the operations provide such functionalities.
+```c++
+vec3 a (1.0f, 2.0f, 3.0f);
+vec3 b (4.0f, 5.0f, 6.0f);
+vec3 c;
+
+c = a + b;
+c = a - b;
+c += b;
+c = -c;
 ```
