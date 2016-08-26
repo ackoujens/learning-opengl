@@ -60,3 +60,31 @@ c = a - b;
 c += b;
 c = -c;
 ```
+
+## Dot product
+Vectors can be added, subtracted, scaled by adding, subtracting, scaling their individual XYZ components.
+
+Dot product can only be applied to 2 vectors. (aka inner product)
+
+Dot product between 2 vec3's result in scalar (just one value) = cosine of the angle between 2 vectors scaled by the product of their lengths.
+
+If the 2 vectors are of unit length the value returned falls between -1.0 and 1.0 and is equal to the cosine of the angle between them.
+
+To get the actual angle between the vectors you need the inverse cosine (arc-cosine) of this value.
+
+Dot product used extensively during lightning calculations. Taken between surface normal vector and vector pointing towards the light source. (diffuse light calculations)
+
+Dot product of 2 vectors v1 and v2:
+`v1 x v2 = v1.x X v2.x + v1.y X v2.y + v1.z X v2.z`
+
+```c++
+vec3 a(...);
+vec3 b(...);
+
+float c = a.dot(b);
+float d = dot(a, b);
+```
+
+Dot product between these result in -1.0 -> 1.0 = cosine of the angle between them.
+This method returns the result in radians.
+```float angle(const vec3& u, const vec3& v);```
