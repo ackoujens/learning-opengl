@@ -116,3 +116,13 @@ vec3 d = cross(a, b);
 ```
 
 Order of the vectors is important!
+
+## Length of a vector
+Magnitude of a vector = length
+
+The magnitude of a 3d vector:
+`length(v) = ((root)v.x(powerof2) + v.y(powerof2) + v.z(powerof2))`
+= square root of the sum of the squares of the components of the vector
+-> same as dot product of a vector with itself
+
+`static inline T length(const vecN<T, len>& v) (...)`
