@@ -29,13 +29,13 @@ Vector lengths of 1 are simpler to use in *math equations*.
 
 ## Making classes to represent vectors and matrices
 3 component vectors (x, y, z)
-'''c++
+```c++
 vec3(-0.5f, 1.0f, -0.2f);
-'''
+```
 
 4 component vectors (x, y, z, w)
 w component is added to make the vector *homogeneous* -> typically set to 1.0
 x, y, z values might later be divided by w (when in 1.0 leaves x, y, z alone)
-'''c++
+```c++
 vec4(-0.5f, 1.0f, -0.2f, 1.0f);
-'''
+```
