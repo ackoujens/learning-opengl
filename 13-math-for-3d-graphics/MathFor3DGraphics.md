@@ -126,3 +126,8 @@ The magnitude of a 3d vector:
 -> same as dot product of a vector with itself
 
 `static inline T length(const vecN<T, len>& v) (...)`
+
+## Reflection and refraction
+Given an incoming vector R(in) and a normal to a surface N
+-> wish to know the direction in which R(in) will be reflacted (Rreflect)
+and given a particular index of refraction n, what direction R(in) will be refracted.
